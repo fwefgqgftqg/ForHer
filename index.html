@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Kristina 🎀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hk-pink: #ffdae0;
+            --hk-dark-pink: #ff4d6d;
+            --hk-white: #ffffff;
+            --bubble-grey: #f0f0f0;
+            --romantic-gradient: linear-gradient(135deg, #ffd1dc 0%, #ffb3c6 50%, #ff8fa3 100%);
+        }
+
+        body {
+            background: var(--romantic-gradient);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            cursor: url('https://cur.cursors-4u.net/anime/ani-11/ani1087.cur'), auto;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Hearts & Roses */
+        .heart {
+            position: fixed;
+            font-size: 25px;
+            z-index: 0;
+            pointer-events: none;
+            animation: floatUp 7s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Start Screen */
+        #start-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--hk-pink);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .pulse-heart { font-size: 80px; animation: heartBeat 1.5s infinite; margin-bottom: 20px; }
+        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+        .start-btn {
+            padding: 20px 45px;
+            font-size: 26px;
+            background: var(--hk-dark-pink);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Dancing Script', cursive;
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.4);
+        }
+
+        /* Phone Container */
+        #phone {
+            width: 95%;
+            max-width: 380px;
+            height: 85vh;
+            background: var(--hk-white);
+            border-radius: 40px;
+            border: 10px solid #333;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            overflow: hidden; /* Tucks corners in */
+            z-index: 10;
+        }
+
+        header {
+            background: #fff;
+            padding: 35px 15px 15px;
+            border-bottom: 2px solid var(--hk-pink);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .header-bow { position: absolute; top: -5px; left: 50%; transform: translateX(-50%); font-size: 35px; }
+
+        header h2 { margin: 0; font-family: 'Dancing Script', cursive; font-size: 18px; color: var(--hk-dark-pink); }
+
+        /* Chat Area */
+        #chat-window {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #fff9fa;
+        }
+
+        .msg { display: flex; align-items: flex-start; max-width: 95%; animation: slideIn 0.5s ease forwards; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .avatar { width: 35px; height: 35px; border-radius: 50%; margin-right: 10px; border: 2px solid var(--hk-pink); flex-shrink: 0; object-fit: cover; }
+
+        .bubble { padding: 10px 14px; border-radius: 18px; border-top-left-radius: 2px; font-size: 13px; background: var(--bubble-grey); color: #444; }
+
+        .chat-img { width: 100%; max-width: 220px; border-radius: 10px; margin-top: 5px; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+        .typing-indicator { font-size: 11px; color: #ff4d6d; font-style: italic; margin-bottom: 10px; display: none; margin-left: 45px;}
+
+        .name { font-size: 10px; font-weight: 600; color: #999; margin-bottom: 3px; }
+
+        .system-msg { align-self: center; background: #fff1f3; color: #ff4d6d; font-weight: 600; font-size: 11px; padding: 6px 18px; border-radius: 20px; margin: 10px 0; border: 1px solid var(--hk-pink); }
+
+        /* Footer Widgets */
+        .chat-footer { padding: 12px; background: #fff; border-top: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
+        .input-box { flex: 1; background: #f5f5f5; padding: 8px 15px; border-radius: 20px; font-size: 12px; color: #bbb; }
+
+        /* "FaceTime" UI */
+        #call-screen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #111;
+            color: white;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 500;
+        }
+
+        .call-avatar { width: 130px; height: 130px; border-radius: 50%; border: 3px solid #ff4d6d; margin-bottom: 20px; object-fit: cover; }
+
+        .call-btn { width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; }
+
+        /* Overlays */
+        #overlay, #grand-finale { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 100; padding: 20px; box-sizing: border-box; text-align: center; }
+        
+        /* THE FINAL IMAGE FIX */
+        #grand-finale img.final-me-photo { 
+            width: 100%; 
+            max-width: 320px; 
+            height: 400px; 
+            object-fit: cover; 
+            border-radius: 25px; 
+            border: 6px solid var(--hk-pink); 
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .shibaal-bubble { background: #1a1a1a !important; color: #ff4d6d !important; animation: shake 0.3s infinite; }
+        @keyframes shake { 0%, 100% { transform: translate(0,0); } 25% { transform: translate(-2px, 2px); } 50% { transform: translate(2px, -2px); } }
+    </style>
+</head>
+<body>
+
+    <div id="start-overlay">
+        <div class="pulse-heart">🎀</div>
+        <h1 style="font-family: 'Dancing Script'; color: white; font-size: 40px;">Valentine Battle for Kristina🌸</h1>
+        <button class="start-btn" onclick="startExperience()">Join Chat</button>
+    </div>
+
+    <!-- AUDIO SETUP -->
+    <audio id="bgMusic">
+        <source src="audio.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="phone">
+        <header>
+            <div class="header-bow">🎀</div>
+            <div style="color:#ccc; font-size: 20px;">◀</div>
+            <h2>Valentine Battle 🎀</h2>
+            <div style="color:#ccc; font-weight: bold; font-size: 18px;">✕</div>
+        </header>
+
+        <div id="chat-window">
+            <!-- Messages go here -->
+        </div>
+        <div id="typing-box" class="typing-indicator">... is typing</div>
+
+        <div class="chat-footer">
+            <div style="color:#ccc; font-size: 20px;">+</div>
+            <div class="input-box">Type a message...</div>
+            <div style="color:var(--hk-dark-pink); font-size: 20px;">➤</div>
+        </div>
+
+        <div id="call-screen">
+            <img src="me.jpg" class="call-avatar">
+            <h3>Swornim <3</h3>
+            <p style="color: #aaa; margin-bottom: 60px;">FaceTime Incoming...</p>
+            <div style="display: flex; gap: 50px;">
+                <div class="call-btn" style="background: #ff3b30;" onclick="alert('You cant reject Swornim! ❤️')">✕</div>
+                <div class="call-btn" style="background: #4cd964;" onclick="answerCall()">📱</div>
+            </div>
+        </div>
+
+        <div id="overlay">
+            <h3 style="font-family:'Dancing Script'; color:var(--hk-dark-pink); font-size:32px;">Who is your true Valentine?</h3>
+            <button class="start-btn" style="width:85%; font-size:20px; margin:10px;" onclick="wrong()">Park Seo-joon</button>
+            <button class="start-btn" style="width:85%; font-size:20px; margin:10px;" onclick="wrong()">Sushant KC</button>
+            <button class="start-btn" style="width:85%; font-size:20px; margin:10px; background:#ff4d6d;" onclick="correct()">❤️ Swornim <3 ❤️</button>
+        </div>
+
+        <div id="grand-finale">
+            <!-- FILE NAME CHANGED TO final_me.jpg AS REQUESTED -->
+            <img src="final_me.jpg" class="final-me-photo" onerror="console.log('Final image failed to load');">
+            <h2 style="font-family:'Dancing Script'; color:var(--hk-dark-pink); font-size:32px; margin:0;">Happy valentines my love</h2>
+            <p style="font-size:14px; color:#666; margin-top:10px;">Miles apart, but closer than ever. <br>Happy Valentine's Day, My bestfriend and My favorite human !</p>
+            <div style="font-size:30px; margin-top: 10px;">🎀 🌹 💕 🌹 🎀</div>
+        </div>
+    </div>
+
+    <script>
+        const chatWindow = document.getElementById('chat-window');
+        const typingBox = document.getElementById('typing-box');
+        const bgMusic = document.getElementById('bgMusic');
+
+        // RESTART AT 01:53 (113 seconds) WHEN SONG ENDS
+        bgMusic.addEventListener('ended', function() {
+            this.currentTime = 113;
+            this.play();
+        }, false);
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = ['❤️', '🎀', '🌸', '💕', '🌹', '🌹'][Math.floor(Math.random() * 6)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 7000);
+        }
+
+        function startExperience() {
+            document.getElementById('start-overlay').style.display = 'none';
+            bgMusic.currentTime = 113; 
+            bgMusic.play();
+            // Faster heart generation
+            setInterval(createHeart, 300);
+            setTimeout(showMessage, 1000);
+        }
+
+        const script = [
+            { name: 'Park Seo-joon', img: 'psj.jpg', text: `Annyeonghaseyo Kristina, lets go to eat kimchi fried-rice for valentines🌸`, delay: 3500 },
+            { name: 'Park Seo-joon', img: 'psj.jpg', type: 'img', content: 'psj_gift.jpg', delay: 3500 },
+            { name: 'Sushant KC', img: 'sushant.jpg', text: `Noo, I will take you to my concert. Anna won't know😉`, delay: 3500 },
+            { name: 'Sushant KC', img: 'sushant.jpg', type: 'img', content: 'sushant_gift.jpg', delay: 3500 },
+            { name: 'Swornim <3', img: 'me.jpg', text: `Thats all cool, but Has any of you climbed a hill with her? 💌`, delay: 3500 },
+            { name: 'Swornim <3', img: 'me.jpg', type: 'img', content: 'swornim_gift.jpg', delay: 4000 },
+            { name: 'Swornim <3', img: 'me.jpg', text: `Do you guys even know where she likes her waffles and panipuri from? Well I do`, delay: 4000 },
+            { name: 'Swornim <3', img: 'me.jpg', type: 'img', content: 'swornim_gift_2.jpg', delay: 3500 },
+            { name: 'Sushant KC', img: 'sushant.jpg', text: `Bro shutup🙄, this year she wants me`, delay: 3000 },
+            { name: 'Park Seo-joon', img: 'psj.jpg', text: `jo-yong-hi hae!! She will always choose me`, delay: 4000 },
+            { name: 'Swornim <3', img: 'me.jpg', text: `Actually, Theres only one person who will be her valentine, this year and every year to come. ME. If you don't believe me, Let her decide `, delay: 5500 }
+        ];
+
+        let i = 0;
+        function showMessage() {
+            if (i < script.length) {
+                const item = script[i];
+                
+                // Show Typing Animation
+                typingBox.style.display = 'block';
+                typingBox.innerText = `${item.name} is typing...`;
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+
+                setTimeout(() => {
+                    typingBox.style.display = 'none';
+                    const msgDiv = document.createElement('div');
+                    msgDiv.className = 'msg';
+                    let content = item.type === 'img' 
+                        ? `<img src="${item.content}" class="chat-img" onerror="this.src='https://via.placeholder.com/200'">` 
+                        : `<div class="bubble">${item.text}</div>`;
+                    
+                    msgDiv.innerHTML = `<img src="${item.img}" class="avatar" onerror="this.src='https://via.placeholder.com/40'"><div style="display:flex; flex-direction:column;"><span class="name">${item.name}</span>${content}</div>`;
+                    chatWindow.appendChild(msgDiv);
+                    chatWindow.scrollTop = chatWindow.scrollHeight;
+                    i++;
+                    setTimeout(showMessage, 1500);
+                }, 1500); // Wait 1.5s for typing animation
+            } else {
+                setTimeout(() => { document.getElementById('overlay').style.display = 'flex'; }, 2000);
+            }
+        }
+
+        function wrong() { alert("❌ That heart belongs to Swornim! ❤️"); }
+
+        function correct() {
+            document.getElementById('overlay').style.display = 'none';
+            const sys = document.createElement('div');
+            sys.className = 'system-msg';
+            sys.innerText = "Kristina chose Swornim as her valentine ❤️";
+            chatWindow.appendChild(sys);
+
+            setTimeout(() => {
+                const reactions = [
+                    { name: 'Sushant KC', img: 'sushant.jpg', text: `Whatever, I have a gf anyway 👋`, delay: 1500 },
+                    { name: 'Park Seo-joon', img: 'psj.jpg', text: `SHIBAAL !!! 🤬 How could I lose to Swornim?!`, delay: 2500, angry: true }
+                ];
+                let j = 0;
+                function playAngry() {
+                    if (j < reactions.length) {
+                        const item = reactions[j];
+                        const msgDiv = document.createElement('div');
+                        msgDiv.className = 'msg';
+                        msgDiv.innerHTML = `<img src="${item.img}" class="avatar"><div style="display:flex; flex-direction:column;"><span class="name">${item.name}</span><div class="bubble ${item.angry ? 'shibaal-bubble' : ''}">${item.text}</div></div>`;
+                        chatWindow.appendChild(msgDiv);
+                        chatWindow.scrollTop = chatWindow.scrollHeight;
+                        j++;
+                        setTimeout(playAngry, item.delay);
+                    } else {
+                        setTimeout(() => { document.getElementById('call-screen').style.display = 'flex'; }, 2000);
+                    }
+                }
+                playAngry();
+            }, 1000);
+        }
+
+        function answerCall() {
+            document.getElementById('call-screen').style.display = 'none';
+            document.getElementById('grand-finale').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
